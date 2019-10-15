@@ -1,26 +1,11 @@
 import React, { Component } from 'react';
 import Todos from './components/Todos'
+import AddTodo from './components/AddTodo'
 import './App.css'
 
 class App extends Component {
   state = {
-    todos: [
-      {
-        id: 1,
-        title: 'Finde simple project to build and learn React',
-        completed: false
-      },
-      {
-        id: 2,
-        title: 'Start working on the project',
-        completed: false
-      },
-      {
-        id: 3,
-        title: 'Finish the project',
-        completed: false
-      }
-    ]
+    todos: []
   }
 
   markComplete = (id) => {
@@ -34,9 +19,19 @@ class App extends Component {
     this.setState({ todos: [...this.state.todos.filter(todo => todo.id !== id)] })
   )
 
+  addTodo = (title) => {
+    const newTodo = {
+      title,
+      completed: false
+    }
+
+    this.setState({ todos: [...this.state.todos, newTodo] })
+  }
+
   render() {
     return (
       <div className='container'>
+        <AddTodo addTodo={this.addTodo} />
         <Todos
           todos={this.state.todos}
           markComplete={this.markComplete}
